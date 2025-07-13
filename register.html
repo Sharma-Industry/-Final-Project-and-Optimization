@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Tasty Bites</title>
+  <link rel="stylesheet" href="94.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="admin-login">
+    <div class="login-container">
+      <div class="login-header">
+        <i class="fas fa-utensils"></i>
+        <h1>Register</h1>
+      </div>
+      <form id="registerForm" class="login-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required />
+        </div>
+        <button type="submit" class="login-btn">Register</button>
+      </form>
+      <div class="register-link">
+        <p>Already have an account? <a href="web.html">Login here</a></p>
+      </div>
+    </div>
+  </div>
+  <script>
+    const registerForm = document.getElementById("registerForm");
+    registerForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = registerForm.name.value.trim();
+      const email = registerForm.email.value.trim();
+      const password = registerForm.password.value;
+
+      if (name && email && password) {
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPassword", password);
+        alert("Registered successfully! You can now login.");
+        window.location.href = "web.html";
+      } else {
+        alert("Please fill all fields.");
+      }
+    });
+  </script>
+</body>
+</html>

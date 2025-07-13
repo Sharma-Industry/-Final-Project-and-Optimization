@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Tasty Bites</title>
+    <link rel="stylesheet" href="94.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <nav class="admin-nav">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i>
+                    <span>Tasty Bites Admin</span>
+                </div>
+                <div class="admin-controls">
+                    <span id="adminEmail"></span>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1>Order Management</h1>
+                <div class="order-filters">
+                    <select id="orderStatus">
+                        <option value="all">All Orders</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="delivered">Delivered</option>
+                    </select>
+                    <input type="date" id="orderDate">
+                </div>
+            </div>
+
+            <div class="orders-list">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersList">
+                        <!-- Orders will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Order Details</h2>
+            <div id="orderDetails">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button class="confirm-btn">Confirm Order</button>
+                <button class="cancel-btn">Cancel Order</button>
+            </div>
+        </div>
+    </div>
+
+  <script src="94.js"></script>
+  <script>
+      function loadOrdersInAdmin() {
+      const ordersList = document.getElementById("ordersList");
+      const orders = JSON.parse(localStorage.getItem("orders")) || [];
+      ordersList.innerHTML = "";
+      orders.forEach(order => {
+      const itemNames = order.items.map(item => item.name).join(", ");
+      const row = document.createElement("tr");
+     row.innerHTML = `
+        <td>${order.id}</td>
+        <td>${order.customer}</td>
+        <td>${itemNames}</td>
+        <td>${order.total}</td>
+        <td>${order.status}</td>
+        <td><button class="view-btn" data-id="${order.id}">View</button></td>
+     `;
+      ordersList.appendChild(row);
+      });
+      }
+     document.addEventListener("DOMContentLoaded", loadOrdersInAdmin);
+   </script>
+</body>
+</html>
